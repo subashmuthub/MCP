@@ -38,13 +38,6 @@ export default function LoginPage() {
   }, []);
 
   useEffect(() => {
-    backgroundImages.forEach((image) => {
-      const preload = new Image();
-      preload.src = image;
-    });
-  }, []);
-
-  useEffect(() => {
     const timer = window.setInterval(() => {
       setBackgroundIndex((index) => (index + 1) % backgroundImages.length);
     }, 5000);
@@ -88,10 +81,22 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat bg-blue-950 text-slate-800"
-      style={{ backgroundImage: `url("${backgroundImages[backgroundIndex]}")` }}
+      className="relative isolate min-h-screen overflow-hidden bg-blue-950 text-slate-800"
     >
-      <div className="min-h-screen bg-blue-950/45">
+      {backgroundImages.map((image, index) => (
+        <img
+          key={image}
+          src={image}
+          alt=""
+          aria-hidden="true"
+          className={`absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700 ${
+            backgroundIndex === index ? "opacity-100" : "opacity-0"
+          }`}
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      ))}
+      <div className="relative z-10 min-h-screen bg-blue-950/45">
         <header className="border-b border-white/10 bg-blue-950/90 shadow-xl">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 lg:px-8">
             <Link to="/" className="flex items-center gap-3">
