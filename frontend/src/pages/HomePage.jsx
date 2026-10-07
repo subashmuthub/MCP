@@ -185,7 +185,7 @@ function Hero() {
           alt=""
           aria-hidden="true"
           loading={index === 0 ? "eager" : "lazy"}
-          fetchPriority={index === 0 ? "high" : "low"}
+          fetchpriority={index === 0 ? "high" : "low"}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             activeSlide === index ? "opacity-100" : "opacity-0"
           }`}

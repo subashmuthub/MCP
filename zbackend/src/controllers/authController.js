@@ -114,6 +114,8 @@ export async function logout(_req, res) {
 }
 
 export async function me(req, res) {
+  if (!req.user) return res.json({ user: null });
+
   try {
     const user = await User.findById(req.user.id).lean();
     if (!user) return res.status(401).json({ message: 'User not found' });
